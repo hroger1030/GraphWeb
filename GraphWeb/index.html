@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GraphWeb Sample</title>
+
+    <script src="Scripts/jqueryV3.3.1.min.js"></script>
+    <script src="Scripts/vis.min.js"></script>
+
+    <link href="Scripts/vis.min.css" rel="stylesheet" />
+    <link href="PageStyle.css" rel="stylesheet" />
+
+    <noscript>JavaScript is required for this page</noscript>
+
+    <script language="Javascript">
+
+        if (typeof jQuery === 'undefined')
+            alert("jQuery library is not found!");
+
+        const DIR = '/img/';
+        var data;
+        var options;
+        var network;
+
+        $(function ()
+        {
+            ResizeToPageHeight();
+            $(window).on('resize', ResizeToPageHeight);
+
+            // {"Id":12,"Name":"ZCvrR0iR","NodeType":4,"Edges":[],"Visited":true}
+
+            let nodes = [
+                { id: 0, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "janedoe1423@yahoo.com" },
+                { id: 1, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "Bob@comcast.com" },
+                { id: 2, shape: 'circularImage', image: DIR + '2.png', font: '12px arial black', label: "169.2.88.178" },
+                { id: 3, shape: 'circularImage', image: DIR + '3.png', font: '12px arial black', label: "1414 Elm st, Seattle, Wa" },
+                { id: 4, shape: 'circularImage', image: DIR + '4.png', font: '12px arial black', label: "206-555-5901" },
+                { id: 5, shape: 'circularImage', image: DIR + '5.png', font: '12px arial black', label: "123-45-6789" },
+                { id: 6, shape: 'circularImage', image: DIR + '6.png', font: '12px arial black', label: "Jane Doe", color: '#ff0000' },
+                { id: 7, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "Fake_bob@aol.com", color: '#ff0000' },
+                { id: 8, shape: 'circularImage', image: DIR + '2.png', font: '12px arial black', label: "177.223.4.45", color: '#ff0000' },
+                { id: 9, shape: 'circularImage', image: DIR + '3.png', font: '12px arial black', label: "1234 Alder St, Seattle, Wa" },
+                { id: 10, shape: 'circularImage', image: DIR + '4.png', font: '12px arial black', label: "206-555-7723" },
+                { id: 11, shape: 'circularImage', image: DIR + '5.png', font: '12px arial black', label: "987-65-1234" },
+                { id: 12, shape: 'circularImage', image: DIR + '6.png', font: '12px arial black', label: "Bob Dobbs" },
+                { id: 13, shape: 'circularImage', image: DIR + '2.png', font: '12px arial black', label: "15.123.44.93" },
+                { id: 14, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "bob_dobbs@hotmail.com" }
+            ];
+
+            let edges = [
+                { from: 1, to: 2 },
+                { from: 12, to: 3 },
+                { from: 2, to: 3 },
+                { from: 6, to: 5 },
+                { from: 6, to: 4 },
+                { from: 6, to: 10 },
+                { from: 7, to: 8 },
+                { from: 6, to: 9 },
+                { from: 9, to: 8 },
+                { from: 10, to: 12 },
+                { from: 11, to: 12 },
+                { from: 12, to: 13 },
+                { from: 13, to: 14 },
+                { from: 9, to: 16 },
+                { from: 6, to: 0 }
+            ];
+
+            data = {
+                nodes: nodes,
+                edges: edges
+            };
+
+            options = {
+                nodes: {
+                    borderWidth: 3,
+                    shadow: true,
+                    size: 30,
+                    color: {
+                        border: '#222222',
+                        background: '#666666'
+                    },
+                    font: {
+                        size: 32,
+                        color: '#000000'
+                    }
+                },
+                edges: {
+                    width: 2,
+                    shadow: true,
+                    color: 'lightgray'
+                }
+            };
+
+            network = new vis.Network(document.getElementById('panGraph'), data, options);
+        });
+
+        ////////////////////////////////////////////////////////////////
+
+        function GetNode(nodeId)
+        {
+            if (IsNullEmptyOrWhiteSpace(nodeId))
+                return;
+
+            console.info("GetNode() called, nodeId: " + nodeId);
+
+            MakeApiRequest('POST', null, 'api/getNode', nodeId, function (data)
+            {
+                //let buffer = '<div style="margin-bottom: 10px;"><i>' + data.Text
+                //    + '</i><div>Id: ' + data.SnippetId
+                //    + ', Author: ' + data.Owner
+                //    + ', Likes:' + data.Likes
+                //    + ', Shared: ' + data.Shared
+                //    + '</div></div>';
+
+                //$('#output').html(buffer);
+            });
+        }
+
+        ////////////////////////////////////////////////////////////////
+
+        function MakeApiRequest(type, email, url, data, callback)
+        {
+            $.ajax({
+                type: type,
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader("emailAddress", email);
+                },
+                url: url,
+                data: (data === null) ? null : JSON.stringify(data),
+                contentType: "application/json",
+                success: function (response)
+                {
+                    if (typeof callback === "function")
+                    {
+                        if (typeof callback === "function")
+                            callback(response);
+                        else
+                            alert("Callback url '" + callback + "' is not a function");
+                    }
+                }
+            }).fail(function (jqXHR, textStatus, err)
+            {
+                $('#output').text('Error: ' + err + ' (check response for detail)');
+            });
+        }
+
+        function ResizeToPageHeight()
+        {
+            let header = $('#panHeader')[0];
+
+            if (header !== null)
+            {
+                let page_height = window.innerHeight - header.offsetHeight -50;
+                $('#panGraph').css('height', page_height + 'px');
+
+                console.info("Page height: " + page_height);
+            }
+        }
+
+        function IsNullEmptyOrWhiteSpace(input)
+        {
+            if (typeof input === 'undefined' || input === null || input.trim().length < 1)
+                return true;
+            else
+                return false;
+        }
+
+        ////////////////////////////////////////////////////////////////
+
+    </script>
+
+</head>
+<body>
+
+    <div id="panMain" style="overflow: auto;">
+
+        <div id="panHeader">
+            <h1>Graph Api Requests</h1>
+
+            <div>
+                <h3>Load node from webservice</h3>
+                <input type="text" id="NodeId" size="5" placeholder="Node Id" />
+                <input type="button" value="LoadNode" onclick="GetNode($('#NodeId').val());" />
+            </div>
+
+            <ul>
+                <li><a href="http://visjs.org/network_examples.html">Vis.Js Examples</a>
+                <li><a href="http://visjs.org/docs/network/">Vis.Js Docs</a>
+            </ul>
+
+        </div>
+
+        <div id="panGraph" class="Window" style="height:600px;width:100%;box-sizing:border-box"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿BODY
+{
+    padding: 10px;
+    border: 0;
+    margin: 0;
+    font-family: Arial;
+    color: #000000;
+    font-size: 12px;
+    cursor: default;
+}
+
+INPUT:hover, CHECKBOX:hover, SELECT:hover, TEXTAREA:hover, OPTION:hover, A:hover
+{
+    cursor: pointer;
+    border-color: rebeccapurple;
+}
+
+INPUT, CHECKBOX, SELECT, TEXTAREA
+{
+    font-family: inherit;
+    font-size: 100%;
+    color: #333333;
+    background-color: #cccccc;
+    border-radius: 5px;
+    border: solid 2px #777777;
+    padding: 5px;
+    margin: 0px;
+}
+
+TEXTAREA
+{
+    min-height: 100px;
+    min-width: 600px;
+    resize: vertical;
+}
+
+A:link, A:visited, A:active
+{
+    color: inherit;
+    text-decoration: none;
+}
+
+.Window
+{
+    border: solid 2px #777777;
+    border-radius: 15px;
+    background-color: #cccccc;
+    padding: 10px;
+    overflow: auto;
+}

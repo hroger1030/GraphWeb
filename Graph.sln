@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "GraphWeb\Graph.csproj", "{A334625A-BC0F-4E0F-BD26-A233E742954C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "..\..\RandomGenerator\RandomNumbers\RandomNumbers.csproj", "{EA669437-C8FD-4273-9ACC-FDA2FA460466}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A334625A-BC0F-4E0F-BD26-A233E742954C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A334625A-BC0F-4E0F-BD26-A233E742954C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A334625A-BC0F-4E0F-BD26-A233E742954C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A334625A-BC0F-4E0F-BD26-A233E742954C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA669437-C8FD-4273-9ACC-FDA2FA460466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA669437-C8FD-4273-9ACC-FDA2FA460466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA669437-C8FD-4273-9ACC-FDA2FA460466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA669437-C8FD-4273-9ACC-FDA2FA460466}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D74B5E40-0E2A-491C-B313-B906222AE105}
+	EndGlobalSection
+EndGlobal
