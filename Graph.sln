@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "GraphWeb\Graph.csproj", "{A334625A-BC0F-4E0F-BD26-A233E742954C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "..\..\RandomGenerator\RandomNumbers\RandomNumbers.csproj", "{EA669437-C8FD-4273-9ACC-FDA2FA460466}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "..\RandomGenerator\RandomNumbers\RandomNumbers.csproj", "{EA669437-C8FD-4273-9ACC-FDA2FA460466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -115,12 +115,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RandomGenerator\RandomNumbers\RandomNumbers.csproj">
+    <ProjectReference Include="..\..\RandomGenerator\RandomNumbers\RandomNumbers.csproj">
       <Project>{ea669437-c8fd-4273-9acc-fda2fa460466}</Project>
       <Name>RandomNumbers</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

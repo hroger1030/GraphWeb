@@ -20,15 +20,15 @@
         var data;
         var options;
         var network;
+        var edges;
+        var nodes;
 
         $(function ()
         {
             ResizeToPageHeight();
             $(window).on('resize', ResizeToPageHeight);
 
-            // {"Id":12,"Name":"ZCvrR0iR","NodeType":4,"Edges":[],"Visited":true}
-
-            let nodes = [
+            nodes = new vis.DataSet([
                 { id: 0, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "janedoe1423@yahoo.com" },
                 { id: 1, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "Bob@comcast.com" },
                 { id: 2, shape: 'circularImage', image: DIR + '2.png', font: '12px arial black', label: "169.2.88.178" },
@@ -44,9 +44,9 @@
                 { id: 12, shape: 'circularImage', image: DIR + '6.png', font: '12px arial black', label: "Bob Dobbs" },
                 { id: 13, shape: 'circularImage', image: DIR + '2.png', font: '12px arial black', label: "15.123.44.93" },
                 { id: 14, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "bob_dobbs@hotmail.com" }
-            ];
+            ]);
 
-            let edges = [
+            edges = new vis.DataSet([
                 { from: 1, to: 2 },
                 { from: 12, to: 3 },
                 { from: 2, to: 3 },
@@ -62,7 +62,7 @@
                 { from: 13, to: 14 },
                 { from: 9, to: 16 },
                 { from: 6, to: 0 }
-            ];
+            ]);
 
             data = {
                 nodes: nodes,
@@ -104,14 +104,27 @@
 
             MakeApiRequest('POST', null, 'api/getNode', nodeId, function (data)
             {
-                //let buffer = '<div style="margin-bottom: 10px;"><i>' + data.Text
-                //    + '</i><div>Id: ' + data.SnippetId
-                //    + ', Author: ' + data.Owner
-                //    + ', Likes:' + data.Likes
-                //    + ', Shared: ' + data.Shared
-                //    + '</div></div>';
+                let new_node = {
+                    id: data.id,
+                    shape: "circularImage",
+                    image: DIR + data.NodeType + ".png",
+                    font: '12px arial black',
+                    label: data.Name + "@hotmail.com"
+                };
+                nodes.add(new_node);
 
-                //$('#output').html(buffer);
+                data.Edges.forEach((e) =>
+                {
+                    let new_edge = {
+                        from: data.id,
+                        to: e
+                    };
+                    edges.add(new_edge);
+                });
+
+                //{ "Id": 12, "Name": "Lz2tmSR", "NodeType": 6, "Edges": [805, 938, 78], "Visited": true }
+                // {"Id":12,"Name":"ZCvrR0iR","NodeType":4,"Edges":[],"Visited":true}
+                // { id: 14, shape: 'circularImage', image: DIR + '1.png', font: '12px arial black', label: "bob_dobbs@hotmail.com" }
             });
         }
 
@@ -150,7 +163,7 @@
 
             if (header !== null)
             {
-                let page_height = window.innerHeight - header.offsetHeight -50;
+                let page_height = window.innerHeight - header.offsetHeight - 50;
                 $('#panGraph').css('height', page_height + 'px');
 
                 console.info("Page height: " + page_height);
